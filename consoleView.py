@@ -1,5 +1,6 @@
 class ConsoleView:
     LETTERS = 'ABCDEFGH'
+    PIECES = [' ○ ', ' ● ']
 
     def showCheckers(matrix):
         linha = '  '
@@ -16,21 +17,14 @@ class ConsoleView:
             print(line_idx + ' ' + linha)
 
     def renderPiece(piece, i, j):
-        if piece == 1:
-            return ' ○ '
+        # Render piece
+        if piece > 0:
+            return ConsoleView.PIECES[piece-1]
         
-        if piece == 2:
-            return ' ● '
-        
-        diff = 1
-        if i%2==0:
-            diff = 0
-
-        if (diff + j) % 2:
+        # Render chessboard pattern
+        if (i%2 + j) % 2:
             return '   '
-        
         return '███'
-    
 
     def requestMovement():
         from_coord = ConsoleView.requestCoordinate('Digite a peça a ser movida: ')
