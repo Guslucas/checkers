@@ -1,6 +1,6 @@
 class ConsoleView:
     LETTERS = 'ABCDEFGH'
-    
+
     def showCheckers(matrix):
         linha = '  '
         for col_idx in '12345678':
@@ -30,3 +30,22 @@ class ConsoleView:
             return '   '
         
         return '███'
+    
+
+    def requestMovement():
+        line_idx, col_idx = ConsoleView.requestCoordinate('Digite a peça a ser movida: ')
+        print(line_idx, col_idx, sep=',')
+
+        line_idx, col_idx = ConsoleView.requestCoordinate('Digite o target: ')
+        print(line_idx, col_idx, sep=',')
+        
+    
+    def requestCoordinate(msg):
+        piece = input(msg)
+        line_idx = piece[0]
+        col_idx = int(piece[1])
+        
+        line_idx = ConsoleView.LETTERS.index(line_idx)
+        col_idx -= 1
+
+        return line_idx, col_idx
