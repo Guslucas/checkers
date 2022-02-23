@@ -13,7 +13,7 @@ def main():
             ]
     
     ConsoleView.showCheckers(matrix)
-    ConsoleView.requestMovement()
+    print(ConsoleView.requestMovement())
     
 
 

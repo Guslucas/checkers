@@ -33,12 +33,10 @@ class ConsoleView:
     
 
     def requestMovement():
-        line_idx, col_idx = ConsoleView.requestCoordinate('Digite a peça a ser movida: ')
-        print(line_idx, col_idx, sep=',')
-
-        line_idx, col_idx = ConsoleView.requestCoordinate('Digite o target: ')
-        print(line_idx, col_idx, sep=',')
+        from_coord = ConsoleView.requestCoordinate('Digite a peça a ser movida: ')
+        to_coord = ConsoleView.requestCoordinate('Digite o target: ')
         
+        return from_coord, to_coord
     
     def requestCoordinate(msg):
         piece = input(msg)
@@ -48,4 +46,4 @@ class ConsoleView:
         line_idx = ConsoleView.LETTERS.index(line_idx)
         col_idx -= 1
 
-        return line_idx, col_idx
+        return (line_idx, col_idx)
