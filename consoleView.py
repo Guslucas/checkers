@@ -1,10 +1,15 @@
 class ConsoleView:
     def showCheckers(matrix):
+        linha = '  '
+        for letter in 'ABCDEFGH':
+            linha += f' {letter} '
+        print(linha)
+
         for i in range(0, 8):
             linha = ''
             for j in range(0, 8):
                 linha += ConsoleView.renderPiece(matrix[i][j], i, j)
-            print(linha)
+            print(str(i+1) + ' ' + linha)
 
     def renderPiece(piece, i, j):
         if piece == 1:
