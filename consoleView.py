@@ -8,9 +8,16 @@ class ConsoleView:
 
     def renderPiece(piece, i, j):
         if piece == 1:
-            return '░░'
+            return ' ○ '
         
         if piece == 2:
-            return '▒▒'
+            return ' ● '
         
-        return '██'
+        diff = 1
+        if i%2==0:
+            diff = 0
+
+        if (diff + j) % 2:
+            return '   '
+        
+        return '███'
