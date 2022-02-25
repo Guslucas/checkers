@@ -1,4 +1,5 @@
 import os
+from pieceSelectionValidation import PieceSelectionValidation
 
 def clearConsole():
     command = 'clear'
@@ -9,8 +10,13 @@ def clearConsole():
 class ConsoleView:
     LETTERS = 'ABCDEFGH'
     PIECES = [' ○ ', ' ● ']
+    MATRIX = None
 
-    def showCheckers(matrix):
+    def load(matrix):
+        ConsoleView.MATRIX = matrix
+        PieceSelectionValidation.load(matrix)
+
+    def showCheckers():
         #clearConsole()
         linha = '  '
         for col_idx in '12345678':
@@ -20,7 +26,7 @@ class ConsoleView:
         for i in range(0, 8):
             linha = ''
             for j in range(0, 8):
-                linha += ConsoleView.renderPiece(matrix[i][j], i, j)
+                linha += ConsoleView.renderPiece(ConsoleView.MATRIX[i][j], i, j)
             
             line_idx = ConsoleView.LETTERS[i]
             print(line_idx + ' ' + linha)
@@ -35,8 +41,13 @@ class ConsoleView:
             return '   '
         return '███'
 
-    def requestMovement():
-        from_coord = ConsoleView.requestCoordinate('Enter the piece coord: ')
+    def requestMovement(current_turn):
+        while True:
+            from_coord = ConsoleView.requestCoordinate('Enter the piece coord: ')
+            if PieceSelectionValidation.isSelectedPieceValid(from_coord, current_turn):
+                break
+            print('Oops.. This is an invalid selection. Please try again.')
+            
         to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
         
         return from_coord, to_coord

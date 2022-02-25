@@ -14,12 +14,17 @@ def main():
                 [2, 0, 2, 0, 2, 0, 2, 0], 
             ]
     
-    ConsoleView.showCheckers(matrix)
-    print(ConsoleView.requestMovement())
+    ConsoleView.load(matrix)
 
+    # TODO turn manager
+    turn = 2
+    ConsoleView.showCheckers()
+    print(ConsoleView.requestMovement(turn))
+
+    turn = 1
     # For testing clear console
-    ConsoleView.showCheckers(matrix)
-    print(ConsoleView.requestMovement())
+    ConsoleView.showCheckers()
+    print(ConsoleView.requestMovement(turn))
     
 
 
