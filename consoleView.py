@@ -1,8 +1,17 @@
+import os
+
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
+
 class ConsoleView:
     LETTERS = 'ABCDEFGH'
     PIECES = [' ○ ', ' ● ']
 
     def showCheckers(matrix):
+        #clearConsole()
         linha = '  '
         for col_idx in '12345678':
             linha += f' {col_idx} '
