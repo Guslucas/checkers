@@ -36,8 +36,8 @@ class ConsoleView:
         return '███'
 
     def requestMovement():
-        from_coord = ConsoleView.requestCoordinate('Digite a peça a ser movida: ')
-        to_coord = ConsoleView.requestCoordinate('Digite o target: ')
+        from_coord = ConsoleView.requestCoordinate('Enter the piece coord: ')
+        to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
         
         return from_coord, to_coord
     
