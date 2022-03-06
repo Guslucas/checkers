@@ -1,5 +1,6 @@
 import os
 from pieceSelectionValidation import PieceSelectionValidation
+from pieceMovementValidation import PieceMovementValidation
 import global_vars
 
 def clearConsole():
@@ -40,10 +41,12 @@ class ConsoleView:
     def requestMovement(current_turn):
         while True:
             from_coord = ConsoleView.requestCoordinate('Enter the piece coord: ')
-            if PieceSelectionValidation.isSelectedPieceValid(from_coord, current_turn):
+            if PieceSelectionValidation.isSelectedPieceValid(from_coord, current_turn) and \
+                PieceMovementValidation.pieceHasSpaceToMove(from_coord, current_turn):
                 break
-            print('Oops.. This is an invalid selection. Please try again.')
-            
+
+            print('Oops.. This is not a valid selection for current turn. Try again.')
+        
         to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
         
         return from_coord, to_coord
