@@ -29,8 +29,8 @@ class ConsoleView:
 
     def renderPiece(piece, i, j):
         # Render piece
-        if piece > 0:
-            return ConsoleView.PIECES[piece-1]
+        if piece is not None:
+            return piece.symbol
         
         # Render chessboard pattern
         if (i%2 + j) % 2:
