@@ -1,5 +1,6 @@
 import os
 from pieceSelectionValidation import PieceSelectionValidation
+import global_vars
 
 def clearConsole():
     command = 'clear'
@@ -10,11 +11,6 @@ def clearConsole():
 class ConsoleView:
     LETTERS = 'ABCDEFGH'
     PIECES = [' ○ ', ' ● ']
-    MATRIX = None
-
-    def load(matrix):
-        ConsoleView.MATRIX = matrix
-        PieceSelectionValidation.load(matrix)
 
     def showCheckers():
         #clearConsole()
@@ -26,7 +22,7 @@ class ConsoleView:
         for i in range(0, 8):
             linha = ''
             for j in range(0, 8):
-                linha += ConsoleView.renderPiece(ConsoleView.MATRIX[i][j], i, j)
+                linha += ConsoleView.renderPiece(global_vars.matrix[i][j], i, j)
             
             line_idx = ConsoleView.LETTERS[i]
             print(line_idx + ' ' + linha)
