@@ -47,7 +47,11 @@ class ConsoleView:
 
             print('Oops.. This is not a valid selection for current turn. Try again.')
         
-        to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
+        while True:
+            to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
+            if PieceMovementValidation.isValidMovement(from_coord, to_coord, current_turn):
+                break
+            print('Oops.. This is not a valid movement.')
         
         return from_coord, to_coord
     
