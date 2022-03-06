@@ -1,6 +1,7 @@
 import os
 import global_vars
 from pieces.piece import Piece
+from pieces.king import King
 from consoleView import ConsoleView
 
 def initBoard():
@@ -26,13 +27,20 @@ def main():
     # TODO turn manager
     turn = 'w'
     ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    #print(ConsoleView.requestMovement(turn))
 
     turn = 'b'
     # For testing clear console
-    ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    #ConsoleView.showCheckers()
+    #print(ConsoleView.requestMovement(turn))
     
+    p = Piece('b')
+    k = King('b')
+    print(f"{type(p)}")
+    print(f"{type(k)}")
+    print(f"{isinstance(p, King)}")
+    print(f"{isinstance(k, King)}")
+
 
 
 if __name__ == '__main__':
