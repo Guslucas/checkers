@@ -27,12 +27,12 @@ def main():
     # TODO turn manager
     turn = 'w'
     ConsoleView.showCheckers()
-    #print(ConsoleView.requestMovement(turn))
+    print(ConsoleView.requestMovement(turn))
 
     turn = 'b'
     # For testing clear console
-    #ConsoleView.showCheckers()
-    #print(ConsoleView.requestMovement(turn))
+    ConsoleView.showCheckers()
+    print(ConsoleView.requestMovement(turn))
     
     p = Piece('b')
     k = King('b')
