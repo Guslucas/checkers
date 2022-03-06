@@ -1,31 +1,46 @@
 import os
 import global_vars
+from pieces.piece import Piece
+from pieces.king import King
 from consoleView import ConsoleView
 
+def initBoard():
+    matrix = [
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [1, 0, 1, 0, 1, 0, 1, 0], 
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [2, 0, 2, 0, 2, 0, 2, 0], 
+        [0, 2, 0, 2, 0, 2, 0, 2], 
+        [2, 0, 2, 0, 2, 0, 2, 0],
+    ]
+
+    
+    matrix = [[Piece('w') if el == 2 else (Piece('b') if el == 1 else None) for el in x] for x in matrix]
+
+    return matrix
+
 def main():
-    print(os.system("chcp"))
-    global_vars.matrix = [
-                [0, 1, 0, 1, 0, 1, 0, 1], 
-                [1, 0, 1, 0, 1, 0, 1, 0], 
-                [0, 1, 0, 1, 0, 1, 0, 1], 
-                [0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0], 
-                [2, 0, 2, 0, 2, 0, 2, 0], 
-                [0, 2, 0, 2, 0, 2, 0, 2], 
-                [2, 0, 2, 0, 2, 0, 2, 0], 
-            ]
-    matrix = global_vars.matrix
+    global_vars.matrix = initBoard()
 
     # TODO turn manager
-    turn = 2
+    turn = 'w'
     ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    #print(ConsoleView.requestMovement(turn))
 
-    turn = 1
+    turn = 'b'
     # For testing clear console
-    ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    #ConsoleView.showCheckers()
+    #print(ConsoleView.requestMovement(turn))
     
+    p = Piece('b')
+    k = King('b')
+    print(f"{type(p)}")
+    print(f"{type(k)}")
+    print(f"{isinstance(p, King)}")
+    print(f"{isinstance(k, King)}")
+
 
 
 if __name__ == '__main__':
