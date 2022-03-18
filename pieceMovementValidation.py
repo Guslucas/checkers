@@ -1,10 +1,27 @@
 import global_vars
+from coordinateTranslator import CoordinateTranslator
 class PieceMovementValidation:
     def pieceHasSpaceToMove(from_coord, turn):
         i, j = from_coord
+        
+        coord_left = CoordinateTranslator(turn, i, j)
+        coord_right = CoordinateTranslator(turn, i, j)
+        
+        # Normalizing black pieces
+        coord_left.translateIfNeeded()
+        coord_right.translateIfNeeded()
+        
+        coord_left.i -= 1
+        coord_left.j -= 1
 
-        vertical_direction = -1 if turn == 'w' else 1
-        return global_vars.matrix[i+vertical_direction][j-1] is None or global_vars.matrix[i+vertical_direction][j+1] is None
+        coord_right.i -= 1
+        coord_right.j += 1
+
+        # Normalizing black pieces
+        coord_left.translateIfNeeded()
+        coord_right.translateIfNeeded()
+        
+        return global_vars.matrix[coord_left.i][coord_left.j] is None or global_vars.matrix[coord_right.i][coord_right.j] is None
     
     def isValidMovement(from_coord, to_coord, turn):
         fi, fj = from_coord
