@@ -1,5 +1,6 @@
 import global_vars
 from coordinateTranslator import CoordinateTranslator
+from moveUtil import MoveUtil
 class PieceMovementValidation:
     def pieceHasSpaceToMove(from_coord, turn):
         i, j = from_coord
@@ -11,17 +12,44 @@ class PieceMovementValidation:
         coord_left.translateIfNeeded()
         coord_right.translateIfNeeded()
         
-        coord_left.i -= 1
-        coord_left.j -= 1
-
-        coord_right.i -= 1
-        coord_right.j += 1
+        coord_left.i, coord_left.j = MoveUtil.moveDiag(coord_left.i, coord_left.j, 1, MoveUtil.TOP_LEFT)
+        coord_right.i, coord_right.j = MoveUtil.moveDiag(coord_left.i, coord_right.j, 1, MoveUtil.TOP_RIGHT)
 
         # Normalizing black pieces
         coord_left.translateIfNeeded()
         coord_right.translateIfNeeded()
         
-        return global_vars.matrix[coord_left.i][coord_left.j] is None or global_vars.matrix[coord_right.i][coord_right.j] is None
+
+        top_left_1 = global_vars.matrix[coord_left.i][coord_left.j]
+        top_right_1 = global_vars.matrix[coord_right.i][coord_right.j]
+        
+        if top_left_1 is None or top_right_1 is None:
+            return True
+        
+        coord_left_2 = CoordinateTranslator(turn, i, j)
+        coord_right_2 = CoordinateTranslator(turn, i, j)
+        
+        # Normalizing black pieces
+        coord_left_2.translateIfNeeded()
+        coord_right_2.translateIfNeeded()
+        
+        coord_left_2.i, coord_left_2.j = MoveUtil.moveDiag(coord_left_2.i, coord_left_2.j, 2, MoveUtil.TOP_LEFT)
+        coord_right_2.i, coord_right_2.j = MoveUtil.moveDiag(coord_left_2.i, coord_right_2.j, 2, MoveUtil.TOP_RIGHT)
+
+        # Normalizing black pieces
+        coord_left_2.translateIfNeeded()
+        coord_right_2.translateIfNeeded()
+        
+
+        top_left_2 = global_vars.matrix[coord_left_2.i][coord_left_2.j]
+        top_right_2 = global_vars.matrix[coord_right_2.i][coord_right_2.j]
+
+        # can capture
+        if top_left_1.color != turn and top_left_2 is None or \
+            top_right_1.color != turn and top_right_2 is None:
+            return True
+
+        return 
     
     def isValidMovement(from_coord, to_coord, turn):
         fi, fj = from_coord
