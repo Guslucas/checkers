@@ -1,6 +1,5 @@
 import global_vars
 from coordinateTranslator import CoordinateTranslator
-from moveUtil import MoveUtil
 class PieceMovementValidation:
     def pieceHasSpaceToMove(from_coord, turn):
         i, j = from_coord
@@ -12,8 +11,8 @@ class PieceMovementValidation:
         coord_left.translateIfNeeded()
         coord_right.translateIfNeeded()
         
-        coord_left.i, coord_left.j = MoveUtil.moveDiag(coord_left.i, coord_left.j, 1, MoveUtil.TOP_LEFT)
-        coord_right.i, coord_right.j = MoveUtil.moveDiag(coord_left.i, coord_right.j, 1, MoveUtil.TOP_RIGHT)
+        coord_left.moveDiag(1, CoordinateTranslator.TOP_LEFT)
+        coord_right.moveDiag(1, CoordinateTranslator.TOP_RIGHT)
 
         # Normalizing black pieces
         coord_left.translateIfNeeded()
@@ -33,8 +32,8 @@ class PieceMovementValidation:
         coord_left_2.translateIfNeeded()
         coord_right_2.translateIfNeeded()
         
-        coord_left_2.i, coord_left_2.j = MoveUtil.moveDiag(coord_left_2.i, coord_left_2.j, 2, MoveUtil.TOP_LEFT)
-        coord_right_2.i, coord_right_2.j = MoveUtil.moveDiag(coord_left_2.i, coord_right_2.j, 2, MoveUtil.TOP_RIGHT)
+        coord_left_2.moveDiag(2, CoordinateTranslator.TOP_LEFT)
+        coord_right_2.moveDiag(2, CoordinateTranslator.TOP_RIGHT)
 
         # Normalizing black pieces
         coord_left_2.translateIfNeeded()
