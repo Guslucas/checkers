@@ -7,45 +7,21 @@ class PieceMovementValidation:
         coord_left = CoordinateTranslator(turn, i, j)
         coord_right = CoordinateTranslator(turn, i, j)
         
-        # Normalizing black pieces
-        coord_left.translateIfNeeded()
-        coord_right.translateIfNeeded()
-        
         coord_left.moveDiag(1, CoordinateTranslator.TOP_LEFT)
         coord_right.moveDiag(1, CoordinateTranslator.TOP_RIGHT)
-
-        # Normalizing black pieces
-        coord_left.translateIfNeeded()
-        coord_right.translateIfNeeded()
         
-
-        top_left_1 = global_vars.matrix[coord_left.i][coord_left.j]
-        top_right_1 = global_vars.matrix[coord_right.i][coord_right.j]
-        
-        if top_left_1 is None or top_right_1 is None:
+        if coord_left.placeAtBoard() is None or coord_right.placeAtBoard() is None:
             return True
         
         coord_left_2 = CoordinateTranslator(turn, i, j)
         coord_right_2 = CoordinateTranslator(turn, i, j)
         
-        # Normalizing black pieces
-        coord_left_2.translateIfNeeded()
-        coord_right_2.translateIfNeeded()
-        
         coord_left_2.moveDiag(2, CoordinateTranslator.TOP_LEFT)
         coord_right_2.moveDiag(2, CoordinateTranslator.TOP_RIGHT)
 
-        # Normalizing black pieces
-        coord_left_2.translateIfNeeded()
-        coord_right_2.translateIfNeeded()
-        
-
-        top_left_2 = global_vars.matrix[coord_left_2.i][coord_left_2.j]
-        top_right_2 = global_vars.matrix[coord_right_2.i][coord_right_2.j]
-
         # can capture
-        if top_left_1.color != turn and top_left_2 is None or \
-            top_right_1.color != turn and top_right_2 is None:
+        if coord_left.placeAtBoard().color != turn and coord_left_2.placeAtBoard() is None or \
+            coord_right.placeAtBoard().color != turn and coord_left_2.placeAtBoard() is None:
             return True
 
         return 

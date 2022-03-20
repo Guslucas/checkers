@@ -1,5 +1,5 @@
 from placeOnBoardValidation import PlaceOnBoardValidation
-
+import global_vars
 class CoordinateTranslator:
 
     TOP_LEFT = {'i': -1, 'j': -1}
@@ -12,6 +12,9 @@ class CoordinateTranslator:
         self.color = turn
         self.i = i
         self.j = j
+        self.valid = True
+        # Normalizing black pieces
+        self.translateIfNeeded()
 
     def translateIfNeeded(self):
         if self.color == 'b':
@@ -32,7 +35,20 @@ class CoordinateTranslator:
         if PlaceOnBoardValidation.isOnBoard((target_i, target_j)):
             self.i = target_i
             self.j = target_j
+            
+            # Normalizing black pieces
+            self.translateIfNeeded()
+
             return True
         else:
-            # TODO Currently not translating to position if impossible
+            self.valid = False
+            self.i = None
+            self.j = None
+
+            # Normalizing black pieces
             return False
+        
+    def placeAtBoard(self):
+        if not self.valid:
+            return None
+        return global_vars.matrix[self.i][self.j]
