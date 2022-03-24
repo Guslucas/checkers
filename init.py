@@ -1,4 +1,5 @@
 import os
+from pieceChange import PieceChange
 import global_vars
 from pieces.piece import Piece
 from pieces.king import King
@@ -21,18 +22,26 @@ def initBoard():
 
     return matrix
 
+    
+
 def main():
     global_vars.matrix = initBoard()
 
     # TODO turn manager
     turn = 'w'
     ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    movement_coord = ConsoleView.requestMovement(turn)
+    #print(movement_coord)
+    PieceChange.movePiece(turn, movement_coord)
 
     turn = 'b'
     # For testing clear console
     ConsoleView.showCheckers()
-    print(ConsoleView.requestMovement(turn))
+    movement_coord = ConsoleView.requestMovement(turn)
+    #print(movement_coord)
+    PieceChange.movePiece(turn, movement_coord)
+    
+    ConsoleView.showCheckers()
     
     p = Piece('b')
     k = King('b')

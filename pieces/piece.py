@@ -7,3 +7,6 @@ class Piece:
             raise ValueError(f"Invalid color {color}.")
         self.color = color
         self.symbol = Piece.SYMBOLS[0 if color == 'b' else 1]
+    
+    def __repr__(self):
+        return self.symbol
