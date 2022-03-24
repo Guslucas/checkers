@@ -7,21 +7,24 @@ class PieceMovementValidation:
         coord_left = CoordinateTranslator(turn, i, j)
         coord_right = CoordinateTranslator(turn, i, j)
         
-        # Normalizing black pieces
-        coord_left.translateIfNeeded()
-        coord_right.translateIfNeeded()
+        coord_left.moveDiag(1, CoordinateTranslator.TOP_LEFT)
+        coord_right.moveDiag(1, CoordinateTranslator.TOP_RIGHT)
         
-        coord_left.i -= 1
-        coord_left.j -= 1
-
-        coord_right.i -= 1
-        coord_right.j += 1
-
-        # Normalizing black pieces
-        coord_left.translateIfNeeded()
-        coord_right.translateIfNeeded()
+        if coord_left.placeAtBoard() is None or coord_right.placeAtBoard() is None:
+            return True
         
-        return global_vars.matrix[coord_left.i][coord_left.j] is None or global_vars.matrix[coord_right.i][coord_right.j] is None
+        coord_left_2 = CoordinateTranslator(turn, i, j)
+        coord_right_2 = CoordinateTranslator(turn, i, j)
+        
+        coord_left_2.moveDiag(2, CoordinateTranslator.TOP_LEFT)
+        coord_right_2.moveDiag(2, CoordinateTranslator.TOP_RIGHT)
+
+        # can capture
+        if coord_left.placeAtBoard().color != turn and coord_left_2.placeAtBoard() is None or \
+            coord_right.placeAtBoard().color != turn and coord_left_2.placeAtBoard() is None:
+            return True
+
+        return 
     
     def isValidMovement(from_coord, to_coord, turn):
         fi, fj = from_coord
