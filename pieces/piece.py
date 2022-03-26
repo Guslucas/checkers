@@ -35,7 +35,7 @@ class Piece:
         if isOffBoard:
             return None
         
-        directions_capitalization = {}
+        directions_capitalization = []
         for direction in CoordinateTranslator.DIRECTIONS:
             can_capture = self.canCapture(i, j, turn, direction)
 
@@ -43,21 +43,23 @@ class Piece:
                 di, dj = direction.values()
                 capture_moves = self.recMaxCapturingMove(i + di*2, j + dj*2, turn, current_route + ConsoleView.indexToCoordinate(i + di*2, j + dj*2), current_capture + 1)
                 if capture_moves is None:
-                    directions_capitalization[direction.values()] = ([current_route + ConsoleView.indexToCoordinate(i + di*2, j + dj*2)], current_capture + 1)
+                    directions_capitalization.append(([current_route + ConsoleView.indexToCoordinate(i + di*2, j + dj*2)], current_capture + 1))
                 else:
-                    directions_capitalization[direction.values()] = capture_moves
+                    directions_capitalization.append(capture_moves)
 
         # if cant capture in any directions, return current
         if not directions_capitalization:
             return None
 
         # if can capture in any direction, get the directions with most captures
-        max_capturing_value = max(directions_capitalization.values(), key = lambda i : i[1])[1]
-        #max_capturing_direction = dict(filter(lambda el: el[1][1] == 1, directions_capitalization.items()))
-        capturing_routes_list = list(map(lambda el: el[0], filter(lambda el: el[1] == max_capturing_value, directions_capitalization.values())))
-        capture_count = list(directions_capitalization.values())[0][1]
+        max_capturing_count = max(directions_capitalization, key = lambda i : i[1])[1]
+        capturing_routes_list = list(map(lambda el: el[0], filter(lambda el: el[1] == max_capturing_count, directions_capitalization)))
+        
+        flattened_capturing_routes_list = []
+        for el in capturing_routes_list:
+            flattened_capturing_routes_list.extend(el)
 
-        return (capturing_routes_list, capture_count)
+        return (flattened_capturing_routes_list, max_capturing_count)
 
     def canCapture(self, i, j, turn, direction):
         coord_dir = CoordinateTranslator(turn, i, j)
