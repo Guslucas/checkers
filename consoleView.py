@@ -67,3 +67,9 @@ class ConsoleView:
         col_idx -= 1
 
         return (line_idx, col_idx)
+    
+    def indexToCoordinate(i, j):
+        line_coord = ConsoleView.LETTERS[i]
+        col_coord = j + 1
+
+        return line_coord + str(col_coord)

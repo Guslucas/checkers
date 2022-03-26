@@ -6,7 +6,8 @@ class CoordinateTranslator:
     TOP_RIGHT = {'i': -1, 'j': 1}
     BOTTOM_LEFT = {'i': 1, 'j': -1}
     BOTTOM_RIGHT = {'i': 1, 'j': 1}
-    DIRECTIONS = [TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT]   
+    DIRECTIONS = [TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT]
+    TOP_DIRECTIONS = [TOP_LEFT, TOP_RIGHT]
 
     def __init__(self, turn, i, j):
         self.color = turn

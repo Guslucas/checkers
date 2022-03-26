@@ -1,7 +1,10 @@
 class TurnManager:
+    def __init__(self, turn = 'w'):
+        self.turn = turn
 
-    def swapTurn(turn):
-        if turn == 'w':
-            return 'b'        
+    def swapTurn(self):
+        if self.turn == 'w':
+            self.turn = 'b'        
         else:
-            return 'w'
+            self.turn = 'w'
+        return self.turn
