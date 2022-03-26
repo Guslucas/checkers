@@ -6,6 +6,7 @@ from pieces.piece import Piece
 from pieces.king import King
 from consoleView import ConsoleView
 from possibleMovesCalculator import PossibleMovesCalculator
+from turnManager import TurnManager
 
 def initBoard():
     # matrix = [
@@ -30,20 +31,21 @@ def initBoard():
         [0, 0, 0, 0, 0, 0, 0, 0],
     ]
     
+
     matrix = [[Piece('w') if el == 2 else (Piece('b') if el == 1 else None) for el in x] for x in matrix]
 
     return matrix
-
-    
 
 def main():
     global_vars.matrix = initBoard()
     possibleMovesCalculator = PossibleMovesCalculator()
 
     # TODO turn manager
-    turn = 'w'
+    
+    turnManager = TurnManager()
+    
     ConsoleView.showCheckers()
-    possibleMoves = possibleMovesCalculator.getPossibleMoves(turn)
+    possibleMoves = possibleMovesCalculator.getPossibleMoves(turnManager.turn)
     
     # movement_coord = ConsoleView.requestMovement(turn)
 
@@ -70,6 +72,12 @@ def main():
     # print(f"{isinstance(k, King)}")
 
 
+    #p = Piece('b')
+    #k = King('b')
+    #print(f"{type(p)}")
+    #print(f"{type(k)}")
+    #print(f"{isinstance(p, King)}")
+    #print(f"{isinstance(k, King)}")
 
 if __name__ == '__main__':
     main()
