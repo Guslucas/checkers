@@ -1,4 +1,3 @@
-import re
 import global_vars
 from consoleView import ConsoleView
 from coordinateTranslator import CoordinateTranslator
@@ -109,5 +108,8 @@ class Piece:
             return coord_dir.i, coord_dir.j
         return False
 
-
+    def promote_to_king(self):
+        from pieces.king import King
+        self.__class__ = King
+        self.update_symbol()
             

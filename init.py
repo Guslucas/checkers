@@ -11,16 +11,18 @@ from turnManager import TurnManager
 from moveApplier import MoveApplier
 
 def initBoard():
-    # matrix = [
-    #     [0, 1, 0, 1, 0, 1, 0, 1], 
-    #     [1, 0, 1, 0, 1, 0, 1, 0], 
-    #     [0, 1, 0, 1, 0, 1, 0, 1], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [2, 0, 2, 0, 2, 0, 2, 0], 
-    #     [0, 2, 0, 2, 0, 2, 0, 2], 
-    #     [2, 0, 2, 0, 2, 0, 2, 0],
-    # ]
+    matrix = [
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [1, 0, 1, 0, 1, 0, 1, 0], 
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [2, 0, 2, 0, 2, 0, 2, 0], 
+        [0, 2, 0, 2, 0, 2, 0, 2], 
+        [2, 0, 2, 0, 2, 0, 2, 0],
+    ]
+
+    # Test scenarios
 
     # matrix = [
     #     [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -66,20 +68,54 @@ def initBoard():
     #     [0, 0, 0, 0, 0, 0, 0, 0],
     # ]
 
-    matrix = [
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 2, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0],
-    ]
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 1, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 2, 0, 0, 0, 0, 0],
+    # ]
+    # # other team
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 1, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 2, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    # ]
+
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 1, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 2, 0, 0, 0, 0, 0],
+    # ]
+    # other team
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 1, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 2, 0, 2, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 2, 0, 2, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 2, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    # ]
     
 
     matrix = [[Piece('w') if el == 2 else (Piece('b') if el == 1 else None) for el in x] for x in matrix]
-
+    # matrix[7][2].promote_to_king()
+    # matrix[0][5].promote_to_king()
     return matrix
 
 def main():
@@ -88,6 +124,7 @@ def main():
 
 
     turnManager = TurnManager('w')
+    show_answers = False
     show_every_move = True
     is_cpu = True
 
@@ -97,7 +134,8 @@ def main():
         if not possibleMoves:
             print('GAME OVER. ', turnManager.swapTurn(), ' wins!')
             break
-        print(possibleMoves)
+        if show_answers:
+            print(possibleMoves)
         move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn, is_cpu)
         print(move)
         MoveApplier.apply(move, move_str, turnManager.turn, show_every_move, is_cpu)
