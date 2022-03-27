@@ -1,4 +1,5 @@
 import os
+from shutil import move
 from turtle import pos
 from pieceChange import PieceChange
 import global_vars
@@ -7,6 +8,7 @@ from pieces.king import King
 from consoleView import ConsoleView
 from possibleMovesCalculator import PossibleMovesCalculator
 from turnManager import TurnManager
+from moveApplier import MoveApplier
 
 def initBoard():
     # matrix = [
@@ -42,27 +44,27 @@ def initBoard():
     #     [0, 0, 0, 0, 0, 0, 0, 0],
     # ]
 
-    # matrix = [
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [0, 0, 1, 0, 1, 0, 0, 0], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [0, 0, 1, 0, 1, 0, 0, 0], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [0, 0, 1, 0, 0, 0, 2, 0], 
-    #     [0, 2, 0, 0, 0, 0, 0, 2], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0],
-    # ]
-    #same, but diff color
     matrix = [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 1, 0],
-        [0, 1, 0, 0, 0, 2, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 2, 0, 2, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 2, 0, 2, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 1, 0, 1, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 1, 0, 1, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 1, 0, 0, 0, 2, 0], 
+        [0, 2, 0, 0, 0, 0, 0, 2], 
         [0, 0, 0, 0, 0, 0, 0, 0],
     ]
+    # same, but diff color
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    #     [1, 0, 0, 0, 0, 0, 1, 0],
+    #     [0, 1, 0, 0, 0, 2, 0, 0],
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    #     [0, 0, 0, 2, 0, 2, 0, 0],
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    #     [0, 0, 0, 2, 0, 2, 0, 0],
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    # ]
     
 
     matrix = [[Piece('w') if el == 2 else (Piece('b') if el == 1 else None) for el in x] for x in matrix]
@@ -75,13 +77,16 @@ def main():
 
     # TODO turn manager
     
-    turnManager = TurnManager('b')
+    turnManager = TurnManager('w')
     
     ConsoleView.showCheckers()
     possibleMoves = possibleMovesCalculator.getPossibleMoves(turnManager.turn)
     print(possibleMoves)
-    # movement_coord = ConsoleView.requestMovement(turn)
+    move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn)
+    print(move)
+    MoveApplier.apply(move, move_str, turnManager.turn)
 
+    #ConsoleView.showCheckers()
     # if movement_coord not in possibleMoves:
     #     return None
 

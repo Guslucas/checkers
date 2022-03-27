@@ -27,7 +27,7 @@ class CoordinateTranslator:
     def translate(self):
         self.i = abs(self.i - 7)
         self.j = abs(self.j - 7)
-        print('new i, j = ', self.i, self.j)
+        #print('new i, j = ', self.i, self.j)
 
     def moveDiag(self, places_qty, direction):
         if direction not in CoordinateTranslator.DIRECTIONS:
