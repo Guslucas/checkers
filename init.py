@@ -11,16 +11,16 @@ from turnManager import TurnManager
 from moveApplier import MoveApplier
 
 def initBoard():
-    # matrix = [
-    #     [0, 1, 0, 1, 0, 1, 0, 1], 
-    #     [1, 0, 1, 0, 1, 0, 1, 0], 
-    #     [0, 1, 0, 1, 0, 2, 0, 1], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [0, 0, 0, 0, 0, 0, 0, 0], 
-    #     [2, 0, 2, 0, 2, 0, 1, 0], 
-    #     [0, 2, 0, 2, 0, 2, 0, 2], 
-    #     [2, 0, 2, 0, 2, 0, 2, 0],
-    # ]
+    matrix = [
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [1, 0, 1, 0, 1, 0, 1, 0], 
+        [0, 1, 0, 1, 0, 1, 0, 1], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [2, 0, 2, 0, 2, 0, 2, 0], 
+        [0, 2, 0, 2, 0, 2, 0, 2], 
+        [2, 0, 2, 0, 2, 0, 2, 0],
+    ]
 
     # matrix = [
     #     [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -44,16 +44,16 @@ def initBoard():
     #     [0, 0, 0, 0, 0, 0, 0, 0],
     # ]
 
-    matrix = [
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 1, 0, 1, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 1, 0, 1, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 1, 0, 0, 0, 2, 0], 
-        [0, 2, 0, 0, 0, 0, 0, 2], 
-        [0, 0, 0, 0, 0, 0, 0, 0],
-    ]
+    # matrix = [
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 1, 0, 1, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 1, 0, 1, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 1, 0, 0, 0, 2, 0], 
+    #     [0, 2, 0, 0, 0, 0, 0, 2], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0],
+    # ]
     # same, but diff color
     # matrix = [
     #     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -75,16 +75,22 @@ def main():
     global_vars.matrix = initBoard()
     possibleMovesCalculator = PossibleMovesCalculator()
 
-    # TODO turn manager
-    
+
     turnManager = TurnManager('w')
     
-    ConsoleView.showCheckers()
-    possibleMoves = possibleMovesCalculator.getPossibleMoves(turnManager.turn)
-    print(possibleMoves)
-    move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn)
-    print(move)
-    MoveApplier.apply(move, move_str, turnManager.turn)
+    while True:
+        ConsoleView.showCheckers()
+        possibleMoves = possibleMovesCalculator.getPossibleMoves(turnManager.turn)
+        if not possibleMoves:
+            print('GAME OVER. ', turnManager.swapTurn(), ' wins!')
+            break
+        print(possibleMoves)
+        move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn)
+        print(move)
+        MoveApplier.apply(move, move_str, turnManager.turn)
+
+        turnManager.swapTurn()
+        print('TURN IS NOW ', turnManager.turn)
 
     #ConsoleView.showCheckers()
     # if movement_coord not in possibleMoves:

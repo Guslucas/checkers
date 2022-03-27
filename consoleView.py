@@ -15,7 +15,7 @@ class ConsoleView:
     PIECES = [' ○ ', ' ● ']
 
     def showCheckers():
-        #clearConsole()
+        clearConsole()
         linha = '  '
         for col_idx in '12345678':
             linha += f' {col_idx} '
@@ -60,12 +60,19 @@ class ConsoleView:
     
     def requestValidMove(possibleMoves, turn):
         while True:
-            move_str = input(turn + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
+            if turn == 'w':
+                move_str = input(turn + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
+            else:
+                move_str = possibleMoves[0][0][0]
+            move_found = [el[1] for el in enumerate(possibleMoves) if move_str in el[1][0]]
             
-            move_found = [el[1] for el in enumerate(possibleMoves) if move_str in el[1][0]][0]
-            if move_found:
-                return move_found, move_str
-            print('Oops.. This is not a valid move. Does it capture as much as possible?')
+            #if empty
+            if not move_found:
+                print('Oops.. This is not a valid move. Does it capture as much as possible?')
+                continue
+
+            move_found = move_found[0]
+            return move_found, move_str
 
     def requestCoordinate(msg):
         str = input(msg)

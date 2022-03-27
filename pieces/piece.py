@@ -24,8 +24,10 @@ class Piece:
         if max_capturing_move is None:
             directions_to_move = []
             for direction in CoordinateTranslator.TOP_DIRECTIONS:
-                if (self.canMove(i, j, turn, direction, global_vars.matrix)):
-                    directions_to_move.append(coord + ConsoleView.indexToCoordinate(i + direction['i'], j + direction['j']))
+                can_move = self.canMove(i, j, turn, direction, global_vars.matrix)
+                if (can_move):
+                    move_i, move_j = can_move
+                    directions_to_move.append(coord + ConsoleView.indexToCoordinate(move_i, move_j))
             return (directions_to_move, 0)
 
         return max_capturing_move
@@ -88,6 +90,11 @@ class Piece:
     def canMove(self, i, j, turn, direction, matrix):
         coord_dir = CoordinateTranslator(turn, i, j, matrix)
         coord_dir.moveDiag(1, direction)
-        return coord_dir.placeAtBoard() is None
+
+        # can move
+        if (coord_dir.placeAtBoard() is None):
+            return coord_dir.i, coord_dir.j
+        return False
+
 
             

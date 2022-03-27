@@ -12,7 +12,7 @@ class MoveApplier:
             from_idx = ConsoleView.coordinateToIndex(_from)
             to_idx = ConsoleView.coordinateToIndex(_to)
             MoveApplier.move_piece(from_idx, to_idx, turn)
-            ConsoleView.showCheckers()
+            #ConsoleView.showCheckers()
 
             _from = _to
 
@@ -31,6 +31,14 @@ class MoveApplier:
 
         # not capturing
         if abs(di) == 1 and abs(dj == 1):
+            #moving
+            el = CoordinateTranslator(turn, from_i, from_j, matrix)
+            el.i += di
+            el.j += dj
+            el.translateIfNeeded()
+
+            matrix[el.i][el.j] = matrix[from_i][from_j]
+            matrix[from_i][from_j] = None
             return
 
         # capturing
