@@ -23,6 +23,17 @@ class MoveApplier:
 
 
             _from = _to
+        
+        piece = move[3]
+        last_i, _ = to_idx
+
+        if last_i == 0 and piece.color == 'w':
+            piece.promote_to_king()
+            return
+        
+        if last_i == 7 and piece.color == 'b':
+            piece.promote_to_king()
+
 
     def move_piece(_from, _to, turn):
         matrix = global_vars.matrix
