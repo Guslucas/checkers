@@ -124,6 +124,7 @@ def main():
 
 
     turnManager = TurnManager('w')
+    show_answers = False
     show_every_move = True
     is_cpu = True
 
@@ -133,7 +134,8 @@ def main():
         if not possibleMoves:
             print('GAME OVER. ', turnManager.swapTurn(), ' wins!')
             break
-        print(possibleMoves)
+        if show_answers:
+            print(possibleMoves)
         move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn, is_cpu)
         print(move)
         MoveApplier.apply(move, move_str, turnManager.turn, show_every_move, is_cpu)
