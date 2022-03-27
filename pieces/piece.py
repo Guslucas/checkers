@@ -32,13 +32,25 @@ class Piece:
 
         return max_capturing_move
 
-    def recMaxCapturingMove(self, i, j, turn, current_route, current_capture, matrix):
+    def recMaxCapturingMove(self, i, j, turn, current_route, current_capture, matrix, last_direction = None):
         isOffBoard = not PlaceOnBoardValidation.isOnBoard((i, j))
         if isOffBoard:
             return None
         
         directions_capitalization = []
-        for direction in CoordinateTranslator.DIRECTIONS:
+        
+        directions_to_consider = CoordinateTranslator.DIRECTIONS
+        
+        if last_direction:
+            directions_to_consider = CoordinateTranslator.DIRECTIONS.copy()
+            
+            disregard_last_direction = last_direction.copy()
+            disregard_last_direction['i'] *= -1
+            disregard_last_direction['j'] *= -1
+
+            directions_to_consider.remove(disregard_last_direction)
+        
+        for direction in directions_to_consider:
             can_capture = self.canCapture(i, j, turn, direction, matrix)
 
             if can_capture:
@@ -58,7 +70,8 @@ class Piece:
                 new_matrix[el2.i][el2.j] = new_matrix[i][j]
                 new_matrix[el.i][el.j] = None
                 new_matrix[i][j] = None
-                capture_moves = self.recMaxCapturingMove(el2.i, el2.j, turn, current_route + ConsoleView.indexToCoordinate(el2.i, el2.j), current_capture + 1, new_matrix)
+
+                capture_moves = self.recMaxCapturingMove(el2.i, el2.j, turn, current_route + ConsoleView.indexToCoordinate(el2.i, el2.j), current_capture + 1, new_matrix, direction)
                 if capture_moves is None:
                     directions_capitalization.append(([current_route + ConsoleView.indexToCoordinate(el2.i, el2.j)], current_capture + 1))
                 else:

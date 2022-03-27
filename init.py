@@ -11,16 +11,16 @@ from turnManager import TurnManager
 from moveApplier import MoveApplier
 
 def initBoard():
-    matrix = [
-        [0, 1, 0, 1, 0, 1, 0, 1], 
-        [1, 0, 1, 0, 1, 0, 1, 0], 
-        [0, 1, 0, 1, 0, 1, 0, 1], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 0, 0, 0, 0, 0], 
-        [2, 0, 2, 0, 2, 0, 2, 0], 
-        [0, 2, 0, 2, 0, 2, 0, 2], 
-        [2, 0, 2, 0, 2, 0, 2, 0],
-    ]
+    # matrix = [
+    #     [0, 1, 0, 1, 0, 1, 0, 1], 
+    #     [1, 0, 1, 0, 1, 0, 1, 0], 
+    #     [0, 1, 0, 1, 0, 1, 0, 1], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [0, 0, 0, 0, 0, 0, 0, 0], 
+    #     [2, 0, 2, 0, 2, 0, 2, 0], 
+    #     [0, 2, 0, 2, 0, 2, 0, 2], 
+    #     [2, 0, 2, 0, 2, 0, 2, 0],
+    # ]
 
     # matrix = [
     #     [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -65,6 +65,17 @@ def initBoard():
     #     [0, 0, 0, 2, 0, 2, 0, 0],
     #     [0, 0, 0, 0, 0, 0, 0, 0],
     # ]
+
+    matrix = [
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 2, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ]
     
 
     matrix = [[Piece('w') if el == 2 else (Piece('b') if el == 1 else None) for el in x] for x in matrix]
@@ -77,7 +88,9 @@ def main():
 
 
     turnManager = TurnManager('w')
-    
+    show_every_move = True
+    is_cpu = True
+
     while True:
         ConsoleView.showCheckers()
         possibleMoves = possibleMovesCalculator.getPossibleMoves(turnManager.turn)
@@ -85,9 +98,9 @@ def main():
             print('GAME OVER. ', turnManager.swapTurn(), ' wins!')
             break
         print(possibleMoves)
-        move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn)
+        move, move_str = ConsoleView.requestValidMove(possibleMoves, turnManager.turn, is_cpu)
         print(move)
-        MoveApplier.apply(move, move_str, turnManager.turn)
+        MoveApplier.apply(move, move_str, turnManager.turn, show_every_move, is_cpu)
 
         turnManager.swapTurn()
         print('TURN IS NOW ', turnManager.turn)
