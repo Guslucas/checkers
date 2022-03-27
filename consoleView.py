@@ -58,12 +58,13 @@ class ConsoleView:
         
         return from_coord, to_coord
     
-    def requestValidMove(possibleMoves, turn):
+    def requestValidMove(possibleMoves, turn, cpu_player = False):
         while True:
-            if turn == 'w':
-                move_str = input(turn + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
-            else:
+            if turn == 'b' and cpu_player is True:
                 move_str = possibleMoves[0][0][0]
+            else:
+                move_str = input(turn + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
+                
             move_found = [el[1] for el in enumerate(possibleMoves) if move_str in el[1][0]]
             
             #if empty

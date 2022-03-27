@@ -1,18 +1,26 @@
 import global_vars
 from coordinateTranslator import CoordinateTranslator
 from consoleView import ConsoleView
+import time
 
 class MoveApplier:
-    def apply(move, move_str, turn):
+    def apply(move, move_str, turn, show_every_move = False, is_cpu = False):
         _from = move_str[0:2]
         
-        for i in range(int((len(move_str) - 2) / 2)):
+        moves_qty = int((len(move_str) - 2) / 2)
+        for i in range(moves_qty):
             _to = move_str[2 + i*2:4 + i *2]
             
             from_idx = ConsoleView.coordinateToIndex(_from)
             to_idx = ConsoleView.coordinateToIndex(_to)
             MoveApplier.move_piece(from_idx, to_idx, turn)
-            #ConsoleView.showCheckers()
+
+            if show_every_move:
+                ConsoleView.showCheckers()
+                time.sleep(.5)
+                if is_cpu and turn == 'b' and i < moves_qty:
+                    time.sleep(.5)
+
 
             _from = _to
 
