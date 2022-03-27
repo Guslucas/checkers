@@ -9,11 +9,14 @@ class CoordinateTranslator:
     DIRECTIONS = [TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT]
     TOP_DIRECTIONS = [TOP_LEFT, TOP_RIGHT]
 
-    def __init__(self, turn, i, j):
+    def __init__(self, turn, i, j, matrix):
         self.color = turn
         self.i = i
         self.j = j
         self.valid = True
+        if matrix is None:
+            raise TypeError('Matrix argument not found')
+        self.matrix = matrix
         # Normalizing black pieces
         self.translateIfNeeded()
 
@@ -24,7 +27,7 @@ class CoordinateTranslator:
     def translate(self):
         self.i = abs(self.i - 7)
         self.j = abs(self.j - 7)
-        print('new i, j = ', self.i, self.j)
+        #print('new i, j = ', self.i, self.j)
 
     def moveDiag(self, places_qty, direction):
         if direction not in CoordinateTranslator.DIRECTIONS:
@@ -51,5 +54,5 @@ class CoordinateTranslator:
         
     def placeAtBoard(self):
         if not self.valid:
-            return None
-        return global_vars.matrix[self.i][self.j]
+            return False
+        return self.matrix[self.i][self.j]
