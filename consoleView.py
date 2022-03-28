@@ -1,7 +1,4 @@
 import os
-from placeOnBoardValidation import PlaceOnBoardValidation
-from pieceSelectionValidation import PieceSelectionValidation
-from pieceMovementValidation import PieceMovementValidation
 import global_vars
 
 def clearConsole():
@@ -38,32 +35,13 @@ class ConsoleView:
         if (i%2 + j) % 2:
             return '   '
         return '███'
-
-    def requestMovement(current_turn):
-        while True:
-            from_coord = ConsoleView.requestCoordinate('Enter the piece coord: ')
-            if PlaceOnBoardValidation.isOnBoard(from_coord) and \
-                PieceSelectionValidation.isSelectedPieceValid(from_coord, current_turn) and \
-                PieceMovementValidation.pieceHasSpaceToMove(from_coord, current_turn):
-                break
-
-            print('Oops.. This is not a valid selection for current turn. Try again.')
-        
-        while True:
-            to_coord = ConsoleView.requestCoordinate('Enter target coord: ')
-            if PlaceOnBoardValidation.isOnBoard(to_coord) and\
-                PieceMovementValidation.isValidMovement(from_coord, to_coord, current_turn):
-                break
-            print('Oops.. This is not a valid movement.')
-        
-        return from_coord, to_coord
     
-    def requestValidMove(possibleMoves, turn, cpu_player = False):
+    def requestValidMove(possibleMoves, turnManager, cpu_player = False):
         while True:
-            if turn == 'b' and cpu_player is True:
+            if True:#turnManager.turn == 'b' and cpu_player is True:
                 move_str = possibleMoves[0][0][0]
             else:
-                move_str = input(turn + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
+                move_str = input(turnManager.currentTeam() + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
                 
             move_found = [el[1] for el in enumerate(possibleMoves) if move_str in el[1][0]]
             

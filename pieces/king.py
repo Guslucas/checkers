@@ -6,7 +6,7 @@ from pieces.piece import Piece
 
 class King(Piece):
 
-    SYMBOLS = [' ♚ ', ' ♔ ']
+    SYMBOLS = [' ♔ ', ' ♚ ']
 
     def __init__(self, color):
         pass
@@ -69,7 +69,7 @@ class King(Piece):
                     if place_at_board == False or place_at_board is not None:
                         break
                     
-                    print('Could capture to ', new_i, new_j)
+                    #print('Could capture to ', new_i, new_j)
 
                     new_matrix = [row[:] for row in matrix]
                     new_matrix[new_i][new_j] = new_matrix[i][j]

@@ -8,3 +8,8 @@ class TurnManager:
         else:
             self.turn = 'w'
         return self.turn
+    
+    def currentTeam(self):
+        if self.turn == 'w':
+            return 'White team'
+        return 'Black team'
