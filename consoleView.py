@@ -38,7 +38,7 @@ class ConsoleView:
     
     def requestValidMove(possibleMoves, turnManager, cpu_player = False):
         while True:
-            if True:#turnManager.turn == 'b' and cpu_player is True:
+            if turnManager.turn == 'b' and cpu_player is True:
                 move_str = possibleMoves[0][0][0]
             else:
                 move_str = input(turnManager.currentTeam() + " - Enter the string containing the play: (ex: 'B7D5F7')\n_> ")
