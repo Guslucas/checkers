@@ -26,7 +26,7 @@ def main():
     possibleMovesCalculator = PossibleMovesCalculator()
 
 
-    turnManager = TurnManager('b')
+    turnManager = TurnManager('w')
     show_answers = False
     show_every_move = True
     is_cpu = True
