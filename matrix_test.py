@@ -88,3 +88,6 @@
     #     [0, 0, 0, 0, 0, 2, 0, 0], 
     #     [0, 0, 0, 0, 0, 0, 0, 0],
     # ]
+
+    # matrix[7][2].promote_to_king()
+    # matrix[0][5].promote_to_king()
